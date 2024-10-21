@@ -4,3 +4,199 @@
     Layout = "Layouts/_FrontLayout";
     ViewData["Title"] = "Tienda - Cliente";
 }
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/CLIENTE/TIENDA/index.js"></script>
+}
+
+<div data-bs-spy="scroll" class="container scrollspy-example" style="padding: 5rem 0px">
+    <div class="container mt-5">
+        <h3 class="text-center mb-3"><span class="section-title">Restaurantes</span> Populares</h3>
+        <div class="row" id="container-restaurantes-populares">
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h3 class="text-center mb-3"><span class="section-title">Todos los</span> Restaurantes</h3>
+        <div class="row" id="container-restaurantes">
+            <!-- Upcoming Webinar -->
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="bg-label-primary rounded-3 text-center mb-3 pt-4">
+                            <img class="img-fluid w-60" src="~/img/illustrations/sitting-girl-with-laptop-light.png" alt="Card girl image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png" />
+                        </div>
+                        <h4 class="mb-2 pb-1">Upcoming Webinar</h4>
+                        <p class="small">Next Generation Frontend Architecture Using Layout Engine And React Native Web.</p>
+                        <div class="row mb-3 g-3">
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-calendar-exclamation bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">17 Nov 23</h6>
+                                        <small>Date</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-time-five bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">32 minutes</h6>
+                                        <small>Duration</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary w-100 d-grid">Join the event</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Upcoming Webinar -->
+            <!-- Upcoming Webinar -->
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="bg-label-primary rounded-3 text-center mb-3 pt-4">
+                            <img class="img-fluid w-60" src="~/img/illustrations/sitting-girl-with-laptop-light.png" alt="Card girl image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png" />
+                        </div>
+                        <h4 class="mb-2 pb-1">Upcoming Webinar</h4>
+                        <p class="small">Next Generation Frontend Architecture Using Layout Engine And React Native Web.</p>
+                        <div class="row mb-3 g-3">
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-calendar-exclamation bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">17 Nov 23</h6>
+                                        <small>Date</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-time-five bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">32 minutes</h6>
+                                        <small>Duration</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary w-100 d-grid">Join the event</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Upcoming Webinar -->
+            <!-- Upcoming Webinar -->
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="bg-label-primary rounded-3 text-center mb-3 pt-4">
+                            <img class="img-fluid w-60" src="~/img/illustrations/sitting-girl-with-laptop-light.png" alt="Card girl image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png" />
+                        </div>
+                        <h4 class="mb-2 pb-1">Upcoming Webinar</h4>
+                        <p class="small">Next Generation Frontend Architecture Using Layout Engine And React Native Web.</p>
+                        <div class="row mb-3 g-3">
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-calendar-exclamation bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">17 Nov 23</h6>
+                                        <small>Date</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-time-five bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">32 minutes</h6>
+                                        <small>Duration</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary w-100 d-grid">Join the event</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Upcoming Webinar -->
+            <!-- Upcoming Webinar -->
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="bg-label-primary rounded-3 text-center mb-3 pt-4">
+                            <img class="img-fluid w-60" src="~/img/illustrations/sitting-girl-with-laptop-light.png" alt="Card girl image" data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png" />
+                        </div>
+                        <h4 class="mb-2 pb-1">Upcoming Webinar</h4>
+                        <p class="small">Next Generation Frontend Architecture Using Layout Engine And React Native Web.</p>
+                        <div class="row mb-3 g-3">
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-calendar-exclamation bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">17 Nov 23</h6>
+                                        <small>Date</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-2">
+                                        <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-time-five bx-sm"></i></span>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 text-nowrap">32 minutes</h6>
+                                        <small>Duration</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href="javascript:void(0);" class="btn btn-primary w-100 d-grid">Join the event</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/ Upcoming Webinar -->
+        </div>
+    </div>
+</div>

@@ -391,7 +391,7 @@ const executeView = () => {
 
 
 
-// executeView().init();
+executeView().init();
 
 // const useContext = async () => {
 //   $.ajax({

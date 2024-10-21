@@ -25,19 +25,20 @@
 
 @section PageScripts {
     <script src="~/app/ADMIN/SOCIOS/index.js"></script>
-} 
+}
 
-@* <h4 class="py-3 breadcrumb-wrapper mb-4">
+<h4 class="py-3 breadcrumb-wrapper mb-4">
     <span class="text-muted fw-light">Socios /</span> Listado
 </h4>
 
 <div class="card">
-    <div class="card-datatable table-responsive pb-0 content-datatable">
-        <table id="sociosTable" class="mx-1 table border-top">
-        </table>
-    </div>
+    <section class="section-py">
+        <div class="card-datatable table-responsive pb-0 content-datatable">
+            <table id="sociosTable" class="mx-1 table border-top">
+            </table>
+        </div>
+    </section>
 </div>
 
 @await Html.PartialAsync("./_Partials/_ModalAgregarRestaurant")
 @await Html.PartialAsync("./_Partials/_ModalEditarRestaurant")
- *@
