@@ -1,0 +1,71 @@
+<!-- Footer: Start -->
+<footer class="landing-footer bg-body footer-text">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row gx-0 gy-4 g-md-5">
+        <div class="col-lg-5">
+          <a asp-page="/Index" class="app-brand-link mb-4">
+            <span class="app-brand-logo demo">
+              @await Html.PartialAsync("../_Partials/_Macros")
+            </span>
+            <span class="app-brand-text demo footer-link fw-bold ms-2 ps-1">@TempData.Peek("appName")</span>
+          </a>
+          <p class="footer-text footer-logo-description mb-4">
+            Siempre estamos trabajando para mejorar la experiencia de nuestros usuarios.
+          </p>
+        </div>
+        <div class="col-lg-7 col-md-4 col-sm-6">
+          <h6 class="footer-title mb-4">
+            Páginas
+          </h6>
+          <ul class="list-unstyled mb-md-0">
+            <li class="mb-3">
+              <a href="javascript:void(0);" class="footer-link">Inicio</a>
+            </li>
+            <li class="mb-3">
+              <a href="javascript:void(0);" class="footer-link">Nosotros</a>
+            </li>
+            <li class="mb-3">
+              <a href="javascript:void(0);" class="footer-link">Tienda</a>
+            </li>
+            <li class="mb-3">
+              <a href="javascript:void(0);" class="footer-link">Socios</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);" class="footer-link">Comunidad</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom py-3">
+    <div class="container d-flex flex-wrap justify-content-between flex-md-row flex-column text-center text-md-start">
+      <div class="mb-2 mb-md-0">
+        <span class="footer-text">©
+          <script>
+          document.write(new Date().getFullYear());
+
+          </script>
+        </span>
+        <span class="footer-text"> YAKUBITE </span> 
+        - Todos los derechos reservados.
+      </div>
+      <div>
+        <a href='@TempData.Peek("githubFreeUrl")' class="footer-link me-3" target="_blank">
+          <img src="~/img/front-pages/icons/github-light.png" alt="github icon" data-app-light-img="front-pages/icons/github-light.png" data-app-dark-img="front-pages/icons/github-dark.png" />
+        </a>
+        <a href='@TempData.Peek("facebookUrl")' class="footer-link me-3" target="_blank">
+          <img src="~/img/front-pages/icons/facebook-light.png" alt="facebook icon" data-app-light-img="front-pages/icons/facebook-light.png" data-app-dark-img="front-pages/icons/facebook-dark.png" />
+        </a>
+        <a href='@TempData.Peek("twitterUrl")' class="footer-link me-3" target="_blank">
+          <img src="~/img/front-pages/icons/twitter-light.png" alt="twitter icon" data-app-light-img="front-pages/icons/twitter-light.png" data-app-dark-img="front-pages/icons/twitter-dark.png" />
+        </a>
+        <a href='@TempData.Peek("instagramUrl")' class="footer-link" target="_blank">
+          <img src="~/img/front-pages/icons/instagram-light.png" alt="google icon" data-app-light-img="front-pages/icons/instagram-light.png" data-app-dark-img="front-pages/icons/instagram-dark.png" />
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer: End -->

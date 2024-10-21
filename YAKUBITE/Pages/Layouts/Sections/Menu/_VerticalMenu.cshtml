@@ -1,0 +1,101 @@
+@{
+  TempData.Keep();
+}
+
+<!-- Menu -->
+@* ! Do this simple *@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+   
+  @* ! Hide app brand if navbar-full *@
+  <div class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
+    <a href="#" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        @await Html.PartialAsync("../_Partials/_Macros")
+      </span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">@TempData.Peek("appName")</span>
+    </a>
+
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+      <i class="bx menu-toggle-icon d-none d-xl-block fs-4 align-middle"></i>
+      <i class="bx bx-x d-block d-xl-none bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  @* ! Hide menu divider if navbar-full *@
+  <div class='menu-divider mt-0 @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  @* ! Full version menu-items *@
+  <ul class="menu-inner py-1">
+    
+  </ul>
+
+</aside>
+<!-- / Menu -->
+
+<script>
+    let token = localStorage.getItem('accessToken');
+    if(!token) window.location.href = '/Auth/Login';
+
+    // datos ...
+    let decodedToken = JSON.parse(atob(token.split('.')[1]));
+    let rol = "Administrador"
+    let name = decodedToken?.family_name || "";
+    let correo = decodedToken?.unique_name || "";
+
+
+    let menu2 = {
+      "1": [
+        {
+          url: "/Admin/Home",
+          icon: "tf-icons bx bx-home",
+          name: "Inicio",
+        },
+        {
+          url: "/Admin/Restaurant",
+          icon: "tf-icons bx bx-store",
+          name: "Restaurantes",
+        },
+        {
+          url: "/Admin/Comunidad",
+          icon: "tf-icons bx bx-group",
+          name: "Comunidad",
+        },
+        {
+          url: "/Admin/Recompensas",
+          icon: "tf-icons bx bx-gift",
+          name: "Recompensas",
+        },
+        {
+          url: "/Admin/Socios",
+          icon: "tf-icons bx bx-user",
+          name: "Socios",
+        },
+        {
+          url: "/Admin/Usuarios",
+          icon: "tf-icons bx bx-user",
+          name: "Usuarios",
+        }
+      ],
+    }
+
+    let menuItems = menu2[1];
+    let menuInner = document.querySelector('.menu-inner');
+
+    menuItems.forEach((item, index) => {
+      let li = document.createElement('li');
+      li.classList.add('menu-item');
+      li.innerHTML = `
+        <a href="${item.url}" class="menu-link d-flex gap-2">
+          <i class="${item.icon}"></i>
+          <div>${item.name}</div>
+        </a>
+      `; 
+      menuInner.appendChild(li);
+    });
+    
+
+
+</script>
