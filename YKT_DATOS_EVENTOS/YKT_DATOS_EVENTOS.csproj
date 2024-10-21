@@ -7,8 +7,17 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<Compile Remove="CLIENTE\**" />
+		<Compile Remove="COMANDOS\ADMIN\**" />
+		<Compile Remove="COMANDOS\CLIENTE\**" />
 		<Compile Remove="Prueba\**" />
+		<EmbeddedResource Remove="CLIENTE\**" />
+		<EmbeddedResource Remove="COMANDOS\ADMIN\**" />
+		<EmbeddedResource Remove="COMANDOS\CLIENTE\**" />
 		<EmbeddedResource Remove="Prueba\**" />
+		<None Remove="CLIENTE\**" />
+		<None Remove="COMANDOS\ADMIN\**" />
+		<None Remove="COMANDOS\CLIENTE\**" />
 		<None Remove="Prueba\**" />
 	</ItemGroup>
 
@@ -21,12 +30,6 @@
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="Dapper" Version="2.1.35" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="COMANDOS\ADMIN\" />
-	  <Folder Include="COMANDOS\CLIENTE\" />
-	  <Folder Include="CLIENTE\" />
 	</ItemGroup>
 	
 </Project>

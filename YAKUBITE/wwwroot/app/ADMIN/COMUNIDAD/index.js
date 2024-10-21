@@ -6,7 +6,7 @@
 
 const executeView = () => {
     const uisApis = {
-        API: '/Admin/Restaurant/Index?handler',
+        API: '/Admin/Comunidad/Index?handler',
         GD: '/Auth/Login/Index?handler'
     };
 
@@ -26,7 +26,7 @@ const executeView = () => {
             forosCrud.eventos.TABLE();
         },
         globales: () => {
-            let dropzoneBasic = $('#AddRestaurant #dropzone-area');
+            let dropzoneBasic = $('#AddForo #dropzone-area');
             if (dropzoneBasic) {
                 myDropzoneAddForo = new Dropzone(dropzoneBasic[0], {
                     previewTemplate: previewTemplate('imagen'),
@@ -44,7 +44,7 @@ const executeView = () => {
                 });
             }
 
-            let dropzoneBasicEdit = $('#EditRestaurant #dropzone-area');
+            let dropzoneBasicEdit = $('#EditForo #dropzone-area');
             if (dropzoneBasicEdit) {
                 myDropzoneEditForo = new Dropzone(dropzoneBasicEdit[0], {
                     previewTemplate: previewTemplateImage('imagen'),
@@ -85,39 +85,39 @@ const executeView = () => {
             }
 
             // * MODALES
-            $('#modalAddRestaurant').on('show.bs.modal', function (e) {
+            $('#modalAddForo').on('show.bs.modal', function (e) {
                 myDropzoneAddForo.removeAllFiles();
-                configFormVal('AddRestaurant', forosCrud.validaciones.INSERT, () => forosCrud.eventos.INSERT());
+                configFormVal('AddForo', forosCrud.validaciones.INSERT, () => forosCrud.eventos.INSERT());
             });
 
-            $('#modalEditRestaurant').on('show.bs.modal', function (e) {
+            $('#modalEditForo').on('show.bs.modal', function (e) {
                 myDropzoneEditForo.removeAllFiles();
-                configFormVal('EditRestaurant', forosCrud.validaciones.UPDATE, () => forosCrud.eventos.UPDATE());
-                func.actualizarForm('EditRestaurant', forosCrud.variables.rowEdit);
+                configFormVal('EditForo', forosCrud.validaciones.UPDATE, () => forosCrud.eventos.UPDATE());
+                func.actualizarForm('EditForo', forosCrud.variables.rowEdit);
                 agregarArchivoADropzone(forosCrud.variables.rowEdit?.ruta, myDropzoneEditForo);
             });
 
             //   // * FORMULARIOS
             $(`#${forosTable}`).on('click', '.edit-row-button', function () {
                 const data = CforosTable.row($(this).parents('tr')).data();
-                if (!data.id) return swalFire.error('No se encontró el restaurant seleccionado');
+                if (!data.id) return swalFire.error('No se encontró el foro seleccionado');
                 forosCrud.variables.rowEdit = data;
-                $('#modalEditRestaurant').modal('show');
+                $('#modalEditForo').modal('show');
             });
 
             $(`#${forosTable}`).on('click', '.delete-row-button', function () {
                 const data = CforosTable.row($(this).parents('tr')).data();
-                if (!data.id) return swalFire.error('No se encontró el restaurant seleccionado');
-                swalFire.confirmar('¿Está seguro de eliminar el Restaurant?', {
+                if (!data.id) return swalFire.error('No se encontró el foro seleccionado');
+                swalFire.confirmar('¿Está seguro de eliminar el foro?', {
                     1: () => forosCrud.eventos.DELETE(data.id)
                 });
             });
 
             $(`#${forosTable}`).on('click', '.view-row-button', function () {
                 const data = CforosTable.row($(this).parents('tr')).data();
-                if (!data.id) return swalFire.error('No se encontró el restaurant seleccionado');
+                if (!data.id) return swalFire.error('No se encontró el foro seleccionado');
                 forosCrud.variables.rowEdit = data;
-                redirect(true, 'navs-menu', data.id);
+                redirect(true, 'navs-respuestas', data.id);
             });
         },
         variables: {
@@ -141,8 +141,8 @@ const executeView = () => {
                         },
                         columns: [
                             { data: 'rn', title: '' },
-                            { data: 'ruc', title: 'RUC' },
-                            { data: 'alias', title: 'Abrev.' },
+                            { data: 'titulo', title: 'Titulo' },
+                            { data: null, title: "Total Com.", className: 'text-center', render: data => data.total || 0 },
                             {
                                 data: null,
                                 title: 'Estado',
@@ -184,8 +184,7 @@ const executeView = () => {
                                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
                                 className: 'btn btn-label-primary btn-add-new',
                                 action: function (e, dt, node, config) {
-
-                                    $('#modalAddRestaurant').modal('show');
+                                    $('#modalAddForo').modal('show');
                                 }
                             });
 
@@ -197,20 +196,16 @@ const executeView = () => {
                 }
             },
             INSERT: () => {
-
-                let file = myDropzoneAddForo.files[0];
-                if (!file) return swalFire.error('Debe seleccionar una imagen');
-
+                let file = myDropzoneAddForo?.files?.[0]; 
                 let formData = new FormData();
-                formData.append('RUC', $('#AddRestaurant #RUC').val());
-                formData.append('DESCRIPCION', $('#AddRestaurant #DESCRIPCION').val());
-                formData.append('ALIAS', $('#AddRestaurant #ALIAS').val());
-                formData.append('DIRECCION', $('#AddRestaurant #DIRECCION').val());
-                formData.append('CATEGORIAGD', $('#AddRestaurant #CATEGORIAGD').val());
-                formData.append('FILE', file);
-                formData.append('ESTADO', $('#AddRestaurant #ESTADO').val());
+                formData.append('TITULO', $('#AddForo #TITULO').val());
+                formData.append('DESCRIPCION', $('#AddForo #DESCRIPCION').val());
+                formData.append('FINICIO', $('#AddForo #FINICIO').val());
+                formData.append('FFIN', $('#AddForo #FFIN').val());
+                formData.append('FILE', file || "");
+                formData.append('ESTADO', $('#AddForo #ESTADO').val());
 
-                swalFire.cargando(['Espere un momento', 'Estamos registrando el grupo dato']);
+                swalFire.cargando(['Espere un momento', 'Estamos registrando el foro']);
                 $.ajax({
                     url: uisApis.API + '=Add',
                     beforeSend: function (xhr) {
@@ -223,9 +218,9 @@ const executeView = () => {
                     data: formData,
                     success: function (data) {
                         if (data?.codEstado > 0) {
-                            swalFire.success('Restaurant registrado correctamente', '', {
+                            swalFire.success('Foro registrado correctamente', '', {
                                 1: () => {
-                                    $('#modalAddRestaurant').modal('hide');
+                                    $('#modalAddForo').modal('hide');
                                     CforosTable.ajax.reload();
                                 }
                             });
@@ -233,7 +228,7 @@ const executeView = () => {
 
                         if (data?.codEstado <= 0) swalFire.error(data.mensaje);
                     },
-                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al agregar el restaurant')
+                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al agregar el foro')
                 });
             },
             UPDATE: () => {
@@ -243,16 +238,15 @@ const executeView = () => {
 
                 let formData = new FormData();
                 formData.append('ID', forosCrud.variables.rowEdit.id);
-                formData.append('RUC', $('#EditRestaurant #RUC').val());
-                formData.append('DESCRIPCION', $('#EditRestaurant #DESCRIPCION').val());
-                formData.append('ALIAS', $('#EditRestaurant #ALIAS').val());
-                formData.append('DIRECCION', $('#EditRestaurant #DIRECCION').val());
-                formData.append('CATEGORIAGD', $('#EditRestaurant #CATEGORIAGD').val());
+                formData.append('TITULO', $('#EditForo #TITULO').val());
+                formData.append('DESCRIPCION', $('#EditForo #DESCRIPCION').val());
+                formData.append('FINICIO', $('#EditForo #FINICIO').val());
+                formData.append('FFIN', $('#EditForo #FFIN').val());
                 formData.append('FILE', file?.isExist ? null : file);
                 formData.append('RUTA', forosCrud.variables.rowEdit.ruta);
-                formData.append('ESTADO', $('#EditRestaurant #ESTADO').val());
+                formData.append('ESTADO', $('#EditForo #ESTADO').val());
 
-                swalFire.cargando(['Espere un momento', 'Estamos actualizando el Restaurant']);
+                swalFire.cargando(['Espere un momento', 'Estamos actualizando el foro']);
                 $.ajax({
                     url: uisApis.API + '=Update',
                     beforeSend: function (xhr) {
@@ -265,9 +259,9 @@ const executeView = () => {
                     data: formData,
                     success: function (data) {
                         if (data?.codEstado > 0) {
-                            swalFire.success('Restaurant actualizado correctamente', '', {
+                            swalFire.success('foro actualizado correctamente', '', {
                                 1: () => {
-                                    $('#modalEditRestaurant').modal('hide');
+                                    $('#modalEditForo').modal('hide');
                                     CforosTable.ajax.reload();
                                 }
                             });
@@ -275,14 +269,14 @@ const executeView = () => {
 
                         if (data?.codEstado <= 0) swalFire.error(data.mensaje);
                     },
-                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al actualizar el restaurant')
+                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al actualizar el foro')
                 });
             },
             DELETE: id => {
                 let formData = new FormData();
                 formData.append('ID', id);
 
-                swalFire.cargando(['Espere un momento', 'Estamos eliminando el restaurant']);
+                swalFire.cargando(['Espere un momento', 'Estamos eliminando el foro']);
                 $.ajax({
                     url: uisApis.API + '=Delete',
                     beforeSend: function (xhr) {
@@ -295,54 +289,44 @@ const executeView = () => {
                     data: formData,
                     success: function (data) {
                         if (data?.codEstado > 0) {
-                            swalFire.success('Restaurant eliminado correctamente', '', {
+                            swalFire.success('foro eliminado correctamente', '', {
                                 1: () => $(`#${forosTable}`).DataTable().ajax.reload()
                             });
                         }
 
                         if (data?.codEstado <= 0) swalFire.error(data.mensaje);
                     },
-                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al eliminar el restaurant')
+                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al eliminar el foro')
                 });
             }
         },
         formularios: {},
         validaciones: {
             INSERT: {
-                RUC: agregarValidaciones({
+                TITULO: agregarValidaciones({
                     required: true,
-                    regexp: /^[0-9]{11}$/,
-
                 }),
                 DESCRIPCION: agregarValidaciones({
                     required: true
                 }),
-                ALIAS: agregarValidaciones({
+                FINICIO: agregarValidaciones({
                     required: true
                 }),
-                DIRECCION: agregarValidaciones({
-                    required: true
-                }),
-                CATEGORIAGD: agregarValidaciones({
+                FFIN: agregarValidaciones({
                     required: true
                 }),
             },
             UPDATE: {
-                RUC: agregarValidaciones({
+                TITULO: agregarValidaciones({
                     required: true,
-                    regexp: /^[0-9]{11}$/,
-
                 }),
                 DESCRIPCION: agregarValidaciones({
                     required: true
                 }),
-                ALIAS: agregarValidaciones({
+                FINICIO: agregarValidaciones({
                     required: true
                 }),
-                DIRECCION: agregarValidaciones({
-                    required: true
-                }),
-                CATEGORIAGD: agregarValidaciones({
+                FFIN: agregarValidaciones({
                     required: true
                 }),
             }
@@ -367,29 +351,27 @@ const executeView = () => {
         },
         eventos: {
             TABLE: () => {
-                $(`#${respuestasTable}_title`).text('RESTAURANTE: ' + forosCrud.variables.rowEdit?.alias || '');
+                $(`#${respuestasTable}_title`).text('FORO: ' + forosCrud.variables.rowEdit?.titulo);
 
                 if (!CrespuestasTable) {
                     CrespuestasTable = $(`#${respuestasTable}`).DataTable({
                         ...configTable(),
                         ajax: {
-                            url: uisApis.API + '=BuscarMenu',
+                            url: uisApis.API + '=BuscarAll',
                             type: 'GET',
                             beforeSend: function (xhr) {
                                 xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('accessToken') || null));
                             },
                             data: function (d) {
                                 delete d.columns;
-                                d.IDREST = forosCrud.variables.rowEdit.id;
+                                d.IDFORO = forosCrud.variables.rowEdit.id;
                                 d.CESTDO = func.obtenerCESTDO(respuestasTable);
                             }
                         },
                         columns: [
                             { data: 'rn', title: '' },
-                            { data: 'nombre', title: 'Nombre' },
-                            { data: 'dcategoriamenu', title: 'Categoria' },
-                            { data: null, title: 'Precio', className: 'text-center', render: data => func.formatoSolesPEN(data.precio) },
-                            { data: null, title: 'Stock 2', className: 'text-center', render: data => data?.stock || '' },
+                            { data: 'usuario', title: 'Usuario' },
+                            { data: 'texto', title: 'Comentario' },
                             {
                                 data: null,
                                 title: 'Estado',
@@ -407,9 +389,8 @@ const executeView = () => {
                                 className: 'text-center',
                                 render: data => {
                                     return `<div class="d-flex justify-content-center m-0 p-0">
-                          <button name="EDITAR" class="btn btn-sm btn-icon edit-row-button" title="Editar"><i class="bx bx-edit"></i></button>
-                          <button name="ELIMINAR" class="btn btn-sm btn-icon delete-row-button" title="Eliminar"><i class="bx bx-trash"></i></button>
-                       </div>`;
+                                    <button name="ELIMINAR" class="btn btn-sm btn-icon delete-row-button" title="Eliminar"><i class="bx bx-trash"></i></button>
+                                </div>`;
                                 }
                             }
                         ],
@@ -425,15 +406,6 @@ const executeView = () => {
                         columnDefs: [],
                         buttons: (() => {
                             let buttons = [];
-
-                            // AGREGAR al inicio PLANTILLA
-                            buttons.unshift({
-                                text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                                className: 'btn btn-label-primary btn-add-new',
-                                action: function (e, dt, node, config) {
-                                    $('#modalAddMenu').modal('show');
-                                }
-                            });
 
                             return buttons;
                         })()
@@ -509,6 +481,7 @@ const executeView = () => {
             }
         }
     }
+    
     return {
         init: async () => {
             await globales.init();
@@ -522,12 +495,12 @@ const executeView = () => {
             myTabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     const tabPane = tab.getAttribute('data-bs-target');
-                    if (tabPane === '#navs-restaurant') {
-                        redirect(false, 'navs-menu', 0);
+                    if (tabPane === '#navs-foros') {
+                        redirect(false, 'navs-respuestas', 0);
                         forosCrud.eventos.TABLE();
                     }
 
-                    if (tabPane === '#navs-menu') {
+                    if (tabPane === '#navs-respuestas') {
                         respuestasCrud.eventos.TABLE();
                     }
                 });
@@ -545,7 +518,7 @@ const executeView = () => {
 
 
 
-executeView().init();
+// executeView().init();
 
 // const useContext = async () => {
 //   $.ajax({

@@ -6,15 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="CLIENTE\**" />
+    <EmbeddedResource Remove="CLIENTE\**" />
+    <None Remove="CLIENTE\**" />
+  </ItemGroup>
+
 
 	<ItemGroup>
 		<ProjectReference Include="..\YKT_CORE\YKT_CORE.csproj" />
 		<ProjectReference Include="..\YKT_DATABASE\YKT_DATABASE.csproj" />
 		<ProjectReference Include="..\YKT_DATOS_MODELOS\YKT_DATOS_MODELOS.csproj" />
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <Folder Include="CLIENTE\" />
 	</ItemGroup>
 </Project>

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YKT.CORE.Structs;
 
 namespace YKT_DATOS_EVENTOS.COMANDOS.ADM.COMUNIDAD
 {
-    internal class ComandoEliminarForo
+    public class ComandoEliminarForo : IRequest<RespuestaConsulta>
     {
+        public int? ID { get; set; } = null;
+        public string? USUARIO { get; set; } = null;
     }
 }

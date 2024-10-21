@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YKT_DATABASE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8756fb9a10d967660701aaf8dfd9e5974e3e274")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0b942e3db102cae8a16ba15ef354473fb24bb9a9")]
 [assembly: System.Reflection.AssemblyProductAttribute("YKT_DATABASE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YKT_DATABASE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

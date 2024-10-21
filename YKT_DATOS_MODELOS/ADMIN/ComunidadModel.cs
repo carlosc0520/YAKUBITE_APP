@@ -9,6 +9,7 @@ namespace YKT_DATOS_MODELOS.ADMIN
         public DateTime? FINICIO { get; set; } = null;
         public DateTime? FFIN { get; set; } = null;
         public string? RUTA { get; set; } = null;
+        public int? TOTAL { get; set; } = null;
     }
 
     public class ComentarioModel : EntidadAuditoria

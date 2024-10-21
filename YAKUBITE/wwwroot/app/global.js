@@ -411,8 +411,16 @@ const func = {
         } else {
           $(`#${form} [name="${uppercaseKey}"]`).val(['undefined', undefined, null].includes(value) ? '' : value);
         }
+
         if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('select2')) {
           $(`#${form} [name="${uppercaseKey}"]`).val(value).trigger('change');
+        }
+
+        // si son flatpickr
+        if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('dob-picker-format')) {
+          $(`#${form} [name="${uppercaseKey}"]`).flatpickr({
+            value: value
+          });
         }
       }
 
@@ -813,4 +821,39 @@ function agregarArchivoADropzone(rutaArchivo, dropzoneInstance) {
     fileOfBlob.dataURL = rutaArchivo;
     fileOfBlob.isExist = true;
   }, 500);
+}
+
+
+const datepickerListModify = document.querySelectorAll('.dob-picker-format');
+if(datepickerListModify.length > 0) {
+  datepickerListModify.forEach(function (datepicker) {
+    datepicker.placeholder = 'DD-MM-YYYY';
+    if (datepicker._flatpickr) {
+      datepicker._flatpickr.destroy();
+    }
+
+    flatpickr(datepicker, {
+      altFormat: 'd-m-Y',
+      dateFormat: 'd-m-Y',
+      altInput: true,
+      allowInput: true,
+      disableMobile: true,
+      locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+          shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+          longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        },
+        months: {
+          shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+          longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        },
+      },
+      onClose: function (selectedDates, dateStr, instance) {
+        if (dateStr === '') {
+          instance.setDate(null);
+        }
+      },
+    });
+  });
 }

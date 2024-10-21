@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
     <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
 }
 
 @section VendorScripts {
@@ -22,6 +23,7 @@
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
     <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
 }
 
 @section PageScripts {
@@ -30,7 +32,7 @@
 
 
 @* ************** Content ************** *@
-<h4 class="py-3 breadcrumb-wrapper mb-4">
+@* <h4 class="py-3 breadcrumb-wrapper mb-4">
     <span class="text-muted fw-light">Comunidad (Foros) /</span> Listado
 </h4>
 
@@ -70,3 +72,6 @@
         </div>
     </div>
 </div>
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarForo")
+@await Html.PartialAsync("./_Partials/_ModalEditarForo") *@
