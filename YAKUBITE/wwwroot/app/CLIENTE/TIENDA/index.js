@@ -20,10 +20,21 @@ const executeView = () => {
       restaurantCrud.eventos.restaurantes();
     },
     globales: () => {
-
+      $("#button-addon2").on("click", function () {
+        var input = $("#input-search-restaurantes").val();
+        if (input) {
+          var data = restaurantCrud.variables.dataRestaurantes.filter(function (d) {
+            return d.alias.toLowerCase().includes(input.toLowerCase());
+          });
+          restaurantCrud.eventos.createCards(data);
+        } else {
+          restaurantCrud.eventos.createCards(restaurantCrud.variables.dataRestaurantes);
+        }
+      });
     },
     variables: {
-      rowEdit: {}
+      rowEdit: {},
+      dataRestaurantes: []
     },
     eventos: {
         restaurantes: async () => {
@@ -35,13 +46,63 @@ const executeView = () => {
                 type: 'GET',
                 success: function (response) {
                     if (response?.data) {
-                        let container = document.getElementById(containerRestaurantes);
-                        container.innerHTML = '';
-                        console.log(response.data);
+                        restaurantCrud.variables.dataRestaurantes = response?.data || [];
+                        restaurantCrud.eventos.createCards(restaurantCrud.variables.dataRestaurantes);
                     }
                 },
                 error: error => swalFire.error('Ocurrió un error al cargar los restaurantes')
             });
+        },
+        createCards: (data) => {
+          let container = document.getElementById(containerRestaurantes);
+          if (!container) return;
+          container.innerHTML = '';
+
+          if (data.length === 0) {
+              container.innerHTML = `
+                <div class="col-12"draggable="false" style="">
+                  <div class="card text-black" style="background-color: #ffcccc;">
+                    <div class="card-body">
+                      <h4 class="text-center p-0 m-0 card-title text-black"> <i class="bx bx-error-circle bx-lg"></i> No se encontraron resultados</h4>
+                      <p class="text-center p-0 card-text">
+                        Intente con otro término de búsqueda
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              `;
+            return;
+          }
+         
+          data.forEach(d => {
+            container.innerHTML += `
+            <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="rounded rounded-3 text-center mb-3 pt-4">
+                            <img class="img-fluid fixed-size" src="${d.ruta}" alt="Card girl image" 
+                                 onerror="this.src='https://placehold.co/600x340';" 
+                                 data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" 
+                                 data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png" />
+                        </div>
+                        <h4 class="mb-2 pb-1">${d.alias}</h4>
+                        <p class="small">${d.direccion}</p>
+                        <div class="row mb-3 g-3">
+                            <div class="text-warning mb-3">
+                                <i class="bx bxs-star bx-sm"></i>
+                                <i class="bx bxs-star bx-sm"></i>
+                                <i class="bx bxs-star bx-sm"></i>
+                                <i class="bx bxs-star bx-sm"></i>
+                                <i class="bx bx-star bx-sm"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href='/Cliente/Tienda/Menu?restaurant=${d.id}' class="btn btn-primary w-100 d-grid">Ir a</a>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        });
         }
     },
     formularios: {},
@@ -87,6 +148,7 @@ const executeView = () => {
   return {
     init: async () => {
       restaurantCrud.init();
+      restaurantCrud.globales();
 
       setTimeout(() => {
         $('.dataTables_filter .form-control').removeClass('form-control-sm');

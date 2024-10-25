@@ -47,6 +47,27 @@ namespace YAKUBITE.Pages.Cliente.Tienda
       }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> OnGetBuscarMenuAllAsync([FromQuery] MenuModel custom)
+    {
+      try
+      {
+        HttpContextDraw.SetModelValues(HttpContext, custom);
+        var datos = await _consultasRestaurant.ListarMenu(custom);
+        var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
+
+        datos.ForEach(e =>
+        {
+          e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
+        });
+
+        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { success = false, message = "Ocurrió un error al listar los restaurantes.", error = ex.Message });
+      }
+    }
 
     #endregion
 

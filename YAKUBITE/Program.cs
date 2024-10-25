@@ -77,7 +77,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection(); //--DESCOMENTAR
+//app.UseHttpsRedirection(); //--DESCOMENTAR
 app.UseStaticFiles();
 
 app.UseRouting();

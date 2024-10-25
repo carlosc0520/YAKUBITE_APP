@@ -30,6 +30,10 @@
 }
 
 <script>
-    let token = localStorage.getItem("accessToken")
-    if (!token) window.location.href = "/Auth/Login"
+    const comprobar = async () => {
+        let token = await localStorage.getItem("accessToken")
+        if (!token) window.location.href = "/Auth/Login"
+    }
+
+    comprobar();
 </script>

@@ -12,7 +12,6 @@ namespace YKT_DATOS_CONSULTAS.ADMIN
         Task<List<RestaurantModel>> Listar(RestaurantModel custom);
         Task<List<RestaurantModel>> ListarAll(RestaurantModel custom);
         Task<List<MenuModel>> ListarMenu(MenuModel custom);
-
     }
     public class ConsultasRestaurant : IConsultasRestaurant
     {
@@ -63,7 +62,6 @@ namespace YKT_DATOS_CONSULTAS.ADMIN
             var conexionSql = _configuration.GetConnectionString("DefaultConnection");
             return await FuncionesSql.EjecutarProcedimiento<RestaurantModel>(conexionSql, Procedimientos.ADMIN.CrudRestaurant, parametros);
         }
-
         public async Task<List<MenuModel>> ListarMenu(MenuModel custom)
         {
             var parametros = new DynamicParameters();
