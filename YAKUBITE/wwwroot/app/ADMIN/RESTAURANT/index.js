@@ -463,7 +463,7 @@ const executeView = () => {
               data: function (d) {
                 delete d.columns;
                 d.IDREST = restaurantCrud.variables.rowEdit.id;
-                d.CESTDO = func.obtenerCESTDO(menuTable);
+                d.ESTADO = func.obtenerCESTDO(menuTable);
               }
             },
             columns: [

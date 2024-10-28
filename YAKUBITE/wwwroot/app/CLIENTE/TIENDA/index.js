@@ -38,17 +38,19 @@ const executeView = () => {
     },
     eventos: {
         restaurantes: async () => {
-            await $.ajax({
+          swalFire.cargando(["Espere un momento", "Estamos cargando los restaurantes"]);
+          await $.ajax({
                 url: uisApis.API + '=BuscarAll&start=0&length=999999&ESTADO=A',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
                 },
                 type: 'GET',
                 success: function (response) {
-                    if (response?.data) {
+                    if (response?.data && response?.data.length > 0) {
+                        swalFire.cerrar();
                         restaurantCrud.variables.dataRestaurantes = response?.data || [];
                         restaurantCrud.eventos.createCards(restaurantCrud.variables.dataRestaurantes);
-                    }
+                    }else swalFire.error('No se encontraron restaurantes');
                 },
                 error: error => swalFire.error('Ocurrió un error al cargar los restaurantes')
             });

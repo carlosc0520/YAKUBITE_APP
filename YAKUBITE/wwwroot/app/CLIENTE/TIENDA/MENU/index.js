@@ -38,7 +38,8 @@ const executeView = () => {
                 });
                 return;
             }
-            
+
+            swalFire.cargando(["Espere un momento", "Estamos cargando los restaurantes"]);
             await $.ajax({
                 url: uisApis.API + '=BuscarMenuAll&start=0&length=999999&ESTADO=A&IDREST=' + IDREST,
                 beforeSend: function (xhr) {
@@ -47,6 +48,7 @@ const executeView = () => {
                 type: 'GET',
                 success: function (response) {
                     if(response.data && response.data.length > 0) {
+                        swalFire.cerrar();
                         let categorias = [];
                         response.data.forEach(d => {
                             if(categorias.length === 0) {
@@ -101,7 +103,6 @@ const executeView = () => {
             if (!container) return;
             container.innerHTML = '';
 
-            data = [...data, ...data,...data, ...data,...data, ...data]
             categorias.forEach((c, i) => {
                 container.innerHTML += `
                 <div id="tab-${c.id}" class="tab-pane fade show p-0 ${i === 0 ? 'active' : ''}">
