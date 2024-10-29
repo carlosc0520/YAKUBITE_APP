@@ -1,0 +1,37 @@
+@page
+@model YAKUBITE.Pages.Cliente.Ordenes.IndexModel
+@{
+    Layout = "Layouts/_FrontLayout";
+    ViewData["Title"] = "Tienda - Ordenes";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/CLIENTE/ORDENES/index.js"></script>
+}
+
+<div class="container-xxl mt-5 py-5" style="margin-top: 5rem !important;">
+    <div class="container">
+        <div class="table-responsive pb-2">
+            <table id="ordenesTable" class="mx-1 table border-top">
+            </table>
+        </div>
+    </div>
+</div>

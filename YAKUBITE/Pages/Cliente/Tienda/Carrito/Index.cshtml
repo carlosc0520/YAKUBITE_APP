@@ -1,0 +1,153 @@
+@page
+@model YAKUBITE.Pages.Cliente.Tienda.Carrito.IndexModel
+@{
+    Layout = "Layouts/_FrontLayout";
+    ViewData["Title"] = "Carrito - Cliente";
+}
+
+@section VendorStyles {
+  <link rel="stylesheet" href="~/vendor/css/pages/front-page-payment.dist.css" />
+  <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css" />
+  <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css" />
+  <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css" />
+  <link rel="stylesheet" href="~/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.dist.css">
+  <link rel="stylesheet" href="~/vendor/libs/sweetalert2/sweetalert2.dist.css" />
+  <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+  <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+}
+
+@section VendorScripts {
+  <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+  <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+  <script src="~/vendor/libs/sweetalert2/sweetalert2.dist.js"></script>
+  <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+  <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+  <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+  <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+  <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+  <script src="~/vendor/libs/select2/select2.dist.js"></script>
+}
+
+@section PageScripts {
+  <script src="~/app/CLIENTE/TIENDA/CARRITO/index.js"></script>
+}
+
+@* ************** Content ************** *@
+
+
+<div class="container-xxl mt-5 py-5" style="margin-top: 5rem !important;">
+    <div class="container">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
+
+            <div class="d-flex flex-column justify-content-center">
+                <h5 id="carrito-orden" class="mb-1 mt-3"></h5>
+                <p id="carrito-fecha" class="text-body"></p>
+            </div>
+
+            <div class="d-flex align-content-center flex-wrap gap-2">
+                <button
+                    id="carrito-refresh" 
+                    class="btn btn-label-primary refresh-order">
+                    <i class="bx bx-refresh"></i>
+                    Refrescar</button>
+                <button
+                    id="carrito-eliminar" 
+                    class="btn btn-label-danger delete-order">Eliminar orden</button>
+            </div>
+
+        </div>
+
+        <!-- Order Details Table -->
+
+        <div class="row">
+            <div class="col-12 col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title m-0">Detalle de la orden</h5>
+                    </div>
+                    
+                    <div class="card-datatable table-responsive">
+                        <table id="carrito-table" class="datatables-order-details table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="w-50">Producto</th>
+                                    <th class="w-25">Precio</th>
+                                    <th class="w-25">Cantidad</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="d-flex justify-content-end align-items-center m-3 mb-2 p-1">
+                            <div class="order-calculations">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="w-px-100 text-heading">Subtotal:</span>
+                                    <h6 id="carrito-subtotal" class="mb-0"></h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="w-px-100 text-heading">Descuentos:</span>
+                                    <h6 id="carrito-descuento" class="mb-0"></h6>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <h6 class="w-px-100 mb-0">Total:</h6>
+                                    <h6 id="carrito-total" class="mb-0"></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h6 class="card-title m-0">Detalle de Pago</h6>
+                    </div>
+
+                    <div class="card-body">
+                        <form id="carrito-form" class="form-validation row">                        
+                            <div class="col-12 col-md-6 mb-4">
+                                <label class="form-label" for="NOMBRES">Nombres <span class="text-danger">*</span></label>
+                                <input type="text" id="NOMBRES" class="form-control" />
+                            </div>
+
+                            <div class="col-12 col-md-6 mb-4">
+                                <label class="form-label" for="APELLIDOS">Apellidos <span class="text-danger">*</span></label>
+                                <input type="text" id="APELLIDOS" class="form-control" />
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label class="form-label" for="billings-email">Correo <span class="text-danger">*</span></label>
+                                <input type="text" id="billings-email" class="form-control" />
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label class="form-label" for="billings-card-num">Número de Tarjeta <span class="text-danger">*</span></label>
+                                <div class="input-group input-group-merge">
+                                    <input type="text" id="billings-card-num" class="form-control billing-card-mask" placeholder="7465 8374 5837 5067" aria-describedby="paymentCard" />
+                                    <span class="input-group-text cursor-pointer p-1" id="paymentCard"><span class="card-type"></span></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12 mb-4">
+                                <label class="form-label" for="billings-card-date">Fecha Exp. <span class="text-danger">*</span></label>
+                                <input type="text" id="billings-card-date" class="form-control billing-expiry-date-mask" placeholder="MM/YY" />
+                            </div>
+
+                            <div class="col-md-6 col-12 mb-4">
+                                <label class="form-label" for="billings-card-cvv">CVV <span class="text-danger">*</span></label>
+                                <input type="text" id="billings-card-cvv" class="form-control billing-cvv-mask" maxlength="3" placeholder="965" />
+                            </div>
+
+                            <div class="col-12">
+                                <button type="submit" id="btnPagarCarrito" class="btn btn-primary w-100">Pagar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

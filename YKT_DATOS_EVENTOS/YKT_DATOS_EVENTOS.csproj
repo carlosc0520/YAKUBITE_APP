@@ -7,17 +7,11 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="CLIENTE\**" />
 		<Compile Remove="COMANDOS\ADMIN\**" />
-		<Compile Remove="COMANDOS\CLIENTE\**" />
 		<Compile Remove="Prueba\**" />
-		<EmbeddedResource Remove="CLIENTE\**" />
 		<EmbeddedResource Remove="COMANDOS\ADMIN\**" />
-		<EmbeddedResource Remove="COMANDOS\CLIENTE\**" />
 		<EmbeddedResource Remove="Prueba\**" />
-		<None Remove="CLIENTE\**" />
 		<None Remove="COMANDOS\ADMIN\**" />
-		<None Remove="COMANDOS\CLIENTE\**" />
 		<None Remove="Prueba\**" />
 	</ItemGroup>
 

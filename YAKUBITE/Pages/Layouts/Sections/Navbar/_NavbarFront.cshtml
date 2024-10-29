@@ -43,10 +43,26 @@
                     <li class="nav-item">
                         <a class="nav-link fw-medium" href="/Cliente/Comunidad">Comunidad</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="/Cliente/Ordenes">Ordenes</a>
+                    </li>
                 </ul>
                 <!-- //alinear al final -->
-                <ul class="navbar-nav d-flex align-items-end justify-content-end">
+                <ul class="navbar-nav d-flex align-items-center justify-content-end">
+                    @* Carrito *@
+                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                        <a class="nav-link dropdown-toggle hide-arrow"
+                            id="icon-carrito-compras"
+                            href="javascript:void(0);" data-bs-toggle="dropdown">
+                            <i class="bx bx-cart bx-sm"></i>
+                        </a>
+                        <ul 
+                        style="width: max-content!important;padding: 5px!important;"
+                        class="dropdown-menu dropdown-menu-end" id="dropdown-carrito-container">
+                     
+                        </ul>
+                        
+                    </li>
                     <!-- User -->
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">

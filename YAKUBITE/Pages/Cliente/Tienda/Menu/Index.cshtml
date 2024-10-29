@@ -39,11 +39,31 @@
                 Los mejores platos, los tenemos para ti
             </h1>
         </div>
-        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
-            <ul id="categorias-menus" class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
+        <div class="d-flex row tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <div class="card mb-2" style="box-shadow: none!important;">
+                    <div class="card-body">
+                        <div class="row d-flex flex-column">
+                            <div class="col-md-12">
+                                <img id="img-restaurant" src="https://placehold.co/200x200" class="img-fluid" alt="...">
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <h5 id="nombre-restaurant" class="card-title fw-bold"></h5>
+                                <p id="direccion-restaurant" class="card-text text-start"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            </ul>
-            <div class="tab-content" id="container-menus-restaurant">
+                <ul id="categorias-menus" 
+                style="width: -webkit-fill-available!important;"
+                class="nav nav-pills d-inline-flex flex-column        
+                justify-content-start border-bottom mb-5">
+                </ul>
+            </div>
+
+            <div class="tab-content col-md-9 col-sm-12 col-xs-12" 
+            id="container-menus-restaurant">
 
             </div>
         </div>
@@ -51,6 +71,7 @@
 </div>
 <!-- Menu End -->
 
+@await Html.PartialAsync("./_Partials/_ModalAgregarPlato")
 
 
 <style>

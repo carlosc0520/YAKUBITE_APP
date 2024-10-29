@@ -735,6 +735,8 @@ const func = {
     });
   },
   formatMonto: (monto, moneda = 'PEN') => {
+    if (isNaN(monto)) monto = 0;
+
     return new Intl.NumberFormat('es-PE', {
       style: 'currency',
       currency: moneda
@@ -857,3 +859,77 @@ if(datepickerListModify.length > 0) {
     });
   });
 }
+
+
+// * EVENTOS GLOBALES
+const carritoCompras = () => {
+  let carrito = document.getElementById('icon-carrito-compras');
+  carrito.addEventListener('click', function (e) {
+    e.preventDefault();
+    let contenedor = document.getElementById('dropdown-carrito-container');
+    let carritoStore = localStorage.getItem('carrito') ? JSON.parse(localStorage.getItem('carrito')) : [];
+    contenedor.innerHTML = '';
+    if (carritoStore.length > 0) {
+      carritoStore.forEach(item => {
+        let html = `
+          <div class="p-3 d-flex gap-3 justify-content-between">
+            <div class="d-flex gap-2">
+              <div class="d-flex align-items-center">
+                <img src="${item.RUTA}" alt="" class="img-fluid" style="width: 50px; height: 50px;">
+              </div>
+              <div>
+                <p class="m-0">${item.NOMBRE}</p>
+                <p class="m-0">Cantidad: ${item.CANTIDAD}</p>
+                <p class="m-0">Total S/. ${item.TOTAL}</p>
+              </div>
+            </div>
+            <div class="d-flex align-items-center">
+              <button class="btn btn-danger btn-sm btn-delete-carrito"
+                data-id="${item.IDMENU}">
+                <i class="bx bx-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        contenedor.innerHTML += html;
+      });
+
+      // boton Pagar Compra
+      contenedor.innerHTML += `
+        <div class="p-3 d-block text-center">
+          <a 
+          href="/Cliente/Tienda/Carrito"
+          class="btn btn-primary btn-sm">Pagar Compra</a>
+        </div>
+      `;
+
+      let btnDelete = document.querySelectorAll('.btn-delete-carrito');
+
+      btnDelete.forEach(btn => {
+        btn.removeEventListener('click', function () { });
+        btn.addEventListener('click', async function () {
+          swalFire.delete('¿Está seguro de eliminar este producto del carrito?', {
+            1: () => {
+              let id = this.getAttribute('data-id');
+              let store = JSON.parse(localStorage.getItem('carrito'));
+              let newStore = store.filter(item => item.IDMENU != id);
+              localStorage.setItem('carrito', JSON.stringify(newStore));
+            }
+          });
+        });
+      });
+    }
+    else {
+      contenedor.innerHTML = `
+        <div class="m-2">
+          <p class="text-center">
+            <i class="bx bx-cart"></i>
+            No hay productos en el carrito
+          </p>
+        </div>
+      `;
+    }
+  });
+}
+
+carritoCompras();

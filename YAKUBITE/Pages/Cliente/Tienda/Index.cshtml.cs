@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using YKT.CONFIG;
 using YKT.CORE.Helpers;
 using YKT_DATOS_CONSULTAS.ADMIN;
+using YKT_DATOS_EVENTOS.COMANDOS.CLIENTE.CARRITO;
 using YKT_DATOS_MODELOS.ADMIN;
 
 namespace YAKUBITE.Pages.Cliente.Tienda
@@ -69,9 +70,21 @@ namespace YAKUBITE.Pages.Cliente.Tienda
       }
     }
 
+    [HttpPost]
+    public async Task<IActionResult> OnPostAddAsync([FromForm] ComandoInsertarCompra comando)
+    {
+      try
+      {
+        comando.IDCLIENTE = int.Parse(HttpContextDraw.User(HttpContext,2));
+        var result = await _mediator.Send(comando);
+        return new JsonResult(result);
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, "Error interno del servidor: " + ex.Message);
+      }
+    }
+
     #endregion
-
-
-
   }
 }

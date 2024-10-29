@@ -1,0 +1,46 @@
+<div class="modal fade" id="modalAddMenu" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3 id="title-menu"></h3>
+                </div>
+                <form id="AddMenu" class="row g-3" 
+                    submit="return false;">
+                    <div class="col-12 col-md-6 p-5 m-0 d-flex justify-content-center align-items-center">
+                        <img id="img-menu-plato" class="img-fluid fixed-size" src="https://placehold.co/300x300" alt="Card girl image" 
+                                style="max-width: 50%!important;"
+                              onerror="this.src='https://placehold.co/200x200';" 
+                              data-app-light-img="illustrations/sitting-girl-with-laptop-light.png" 
+                              data-app-dark-img="illustrations/sitting-girl-with-laptop-dark.png" />
+                    </div>
+
+                    <div class="col-12 col-md-6 row">
+                        <div class="col-12">
+                            <label for="PRECIO" class="form-label">Precio</label>
+                            <input type="text" disabled class="form-control" id="PRECIO" name="PRECIO" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="CANTIDAD" class="form-label">Cantidad</label>
+                            <input type="text" class="form-control solo-numero" id="CANTIDAD" name="CANTIDAD" required>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="TOTAL" class="form-label">Total</label>
+                            <input type="text" disabled class="form-control" id="TOTAL" name="TOTAL" required>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button type="button" id="btnAddMenu" class="btn btn-primary me-sm-3 me-1">
+                        Agregar <i class="bx bx-cart"></i>
+                        </button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

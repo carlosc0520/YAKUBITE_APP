@@ -7,6 +7,7 @@ using YKT.CONFIG;
 using Microsoft.AspNetCore.Http.Features;
 using YKT_DATOS_CONSULTAS.ADMIN;
 using YKT_DATOS_CONSULTAS.LOGIN;
+using YKT_DATOS_CONSULTAS.CLIENTE;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -61,6 +62,11 @@ builder.Services.AddTransient<IConsultasRestaurant, ConsultasRestaurant>();
 builder.Services.AddTransient<IConsultasUsuario, ConsultasUsuario>();
 builder.Services.AddTransient<IConsultasComunidad, ConsultasComunidad>();
 #endregion ADMINISTRADOR
+
+#region CLIENTE
+builder.Services.AddTransient<IConsultasCarrito, ConsultasCarrito>();
+
+#endregion
 
 #region SEGURIDAD
 builder.Services.AddTransient<IConsultasLogin, ConsultasLogin>();
