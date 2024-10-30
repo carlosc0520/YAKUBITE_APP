@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using YKT.CONFIG;
 using YKT.CORE.Helpers;
 using YKT_DATOS_CONSULTAS.ADMIN;
@@ -39,6 +40,36 @@ namespace YAKUBITE.Pages.Admin.Comunidad
         datos.ForEach(e =>
         {
           if(!e.RUTA.IsNullOrEmpty()) e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
+        });
+
+        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { success = false, message = "Ocurrió un error al listar los foros.", error = ex.Message });
+      }
+
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> OnGetBuscarForosAsync([FromQuery] ComunidadModel custom)
+    {
+      try
+      {
+        HttpContextDraw.SetModelValues(HttpContext, custom);
+        var datos = await _consultasComunidad.Listar(custom);
+        var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
+
+        custom.ID  = int.Parse(HttpContextDraw.User(HttpContext, 2));
+        datos.ForEach(e =>
+        {
+          e.RESPUESTA = JsonConvert.DeserializeObject<List<ComentarioModel>>(e.RESPUESTAS);
+          e.RESPUESTA.ForEach(d =>
+          {
+            d.ISDELETE = custom.ID == d.IDUSUARIO;
+            if (!d.DRUTA.IsNullOrEmpty()) d.DRUTA = Path.Combine(ConfiguracionProyecto.HOST, d.DRUTA.Replace("\\", "/"));
+          });
+
         });
 
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });

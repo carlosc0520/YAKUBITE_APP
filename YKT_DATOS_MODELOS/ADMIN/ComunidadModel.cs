@@ -10,6 +10,9 @@ namespace YKT_DATOS_MODELOS.ADMIN
         public DateTime? FFIN { get; set; } = null;
         public string? RUTA { get; set; } = null;
         public int? TOTAL { get; set; } = null;
+        public string? RESPUESTAS { get; set; } = null;
+        public List<ComentarioModel>? RESPUESTA { get; set; } = new List<ComentarioModel>();
+
     }
 
     public class ComentarioModel : EntidadAuditoria
@@ -20,6 +23,7 @@ namespace YKT_DATOS_MODELOS.ADMIN
         public string? DUSUARIO { get; set; } = null;
         public string? DRUTA { get; set; } = null;
         public string? DFORO { get; set; } = null;
+        public bool? ISDELETE { get; set; } = null;
 
     }
 }

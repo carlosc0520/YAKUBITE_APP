@@ -4,3 +4,21 @@
     Layout = "Layouts/_FrontLayout";
     ViewData["Title"] = "Comunidad - Cliente";
 }
+
+@section PageScripts {
+    <script src="~/app/CLIENTE/COMUNIDAD/index.js"></script>
+}
+
+
+<div class="container-xxl mt-5 py-5" style="margin-top: 5rem !important;">
+    <div class="container row">
+        <div class="col-12">
+            <h3>Foros / </h3>
+            <div class="accordion mt-3 accordion-header-primary" id="accordionStyle1">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarComentario")

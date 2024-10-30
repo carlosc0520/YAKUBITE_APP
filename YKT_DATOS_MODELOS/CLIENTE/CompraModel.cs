@@ -9,7 +9,8 @@ namespace YKT_DATOS_MODELOS.CLIENTE
         public decimal? DESCUENTO { get; set; } = null;
         public decimal? TOTAL { get; set; } = null;
         public string? JSONCARRITO { get; set; } = null;
-        public MenuCompraModel? CARRITO { get; set; } = new MenuCompraModel();
+        public string? CLIENTE { get; set; } = null;
+        public List<MenuCompraModel>? CARRITO { get; set; } = new List<MenuCompraModel>();
 
     }
 

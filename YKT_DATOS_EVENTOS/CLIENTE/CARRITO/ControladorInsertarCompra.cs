@@ -9,7 +9,7 @@ using YKT_DATOS_EVENTOS.COMANDOS.CLIENTE.CARRITO;
 
 namespace YKT_DATOS_EVENTOS.CLIENTE.CARRITO
 {
-    internal class ControladorInsertarCompra : IRequestHandler<ComandoInsertarCompra, RespuestaConsulta>
+    public class ControladorInsertarCompra : IRequestHandler<ComandoInsertarCompra, RespuestaConsulta>
     {
         private readonly IConfiguration _configuration;
 

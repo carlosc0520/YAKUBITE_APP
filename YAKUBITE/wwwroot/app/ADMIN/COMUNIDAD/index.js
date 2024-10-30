@@ -197,6 +197,8 @@ const executeView = () => {
             },
             INSERT: () => {
                 let file = myDropzoneAddForo?.files?.[0]; 
+                if (!file) return swalFire.error('Debe seleccionar una imagen');
+                
                 let formData = new FormData();
                 formData.append('TITULO', $('#AddForo #TITULO').val());
                 formData.append('DESCRIPCION', $('#AddForo #DESCRIPCION').val());

@@ -68,6 +68,14 @@ const executeView = () => {
           1: () => $("#modalAddMenu").modal('hide')
         });
       });
+
+      $("#button-addon2").on('click', function () {
+        let valor = $("#input-search-restaurantes").val().trim();
+        let datos = menuCrud.variables.dataRestaurantes.filter(d => d.nombre.toLowerCase().includes(valor.toLowerCase()));
+        menuCrud.eventos.categorias(menuCrud.variables.categorias);
+        menuCrud.eventos.menusCategoria(datos, menuCrud.variables.categorias);
+      
+      });
     },
     variables: {
       rowEdit: {},

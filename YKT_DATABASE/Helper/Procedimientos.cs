@@ -23,7 +23,7 @@
         {
             public const string CrudComentarios = "CLI.USP_CRUD_COMENTARIOS";
             public const string CrudCompra = "CLI.USP_CRUD_COMPRA";
-
+            public const string CrudComentario = "CLI.USP_CRUD_COMENTARIOS";
         }
     }
 }
