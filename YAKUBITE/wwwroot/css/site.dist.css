@@ -312,3 +312,11 @@ div.dt-buttons{
 input.is-invalid ~ input.date-mask {
   border-color: #ff5b5c !important;
 }
+
+.authentication-wrapper.authentication-basic .authentication-inner:before{
+  background: none!important;
+}
+
+.authentication-wrapper.authentication-basic .authentication-inner:after{
+  background: none!important;
+}

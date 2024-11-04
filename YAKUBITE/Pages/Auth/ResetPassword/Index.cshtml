@@ -1,0 +1,81 @@
+@page
+@model YAKUBITE.Pages.Auth.ResetPassword.IndexModel
+@{
+  Layout = "Layouts/_BlankLayout";
+  ViewData["Title"] = "Reset Password Basic - Pages";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/sweetalert2/sweetalert2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/toastr/toastr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/animate-css/animate.dist.css">
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/page-auth.dist.css">
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/sweetalert2/sweetalert2.dist.js"></script>
+    <script src="~/vendor/libs/toastr/toastr.dist.js"></script>
+}
+
+
+@section PageScripts {
+  <script src="~/app/global.js"></script>
+  <script src="~/app/Login/reset.js"></script>
+}
+
+@* ************** Content ************** *@
+<div class="container-xxl">
+  <div class="authentication-wrapper authentication-basic container-p-y">
+    <div class="authentication-inner py-4">
+      <!-- Reset Password -->
+      <div class="card">
+        <div class="card-body">
+          <!-- Logo -->
+          <div class="app-brand justify-content-center">
+            <a href="/" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">@await Html.PartialAsync("../_Partials/_Macros")</span>
+              <span class="app-brand-text demo h3 mb-0 fw-bold">@TempData.Peek("appName")</span>
+            </a>
+          </div>
+          <!-- /Logo -->
+          <h4 class="mb-2">Restablecer contraseña 
+          🔒</h4>
+          <p class="mb-4">Para <span id="CORREO" class="fw-medium"></span></p>
+          <form id="formAuthentication" class="mb-3" >
+            <div class="mb-3 form-password-toggle">
+              <label class="form-label" for="PASSWORD">Nueva Contraseña <span class="text-danger">*</span></label>
+              <div class="input-group input-group-merge">
+                <input type="password" id="PASSWORD" class="form-control" name="PASSWORD" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+              </div>
+            </div>
+            <div class="mb-3 form-password-toggle">
+              <label class="form-label" for="CONFIRMPASSWORD">Confirmar Contraseña <span class="text-danger">*</span></label>
+              <div class="input-group input-group-merge">
+                <input type="password" id="CONFIRMPASSWORD" class="form-control" name="CONFIRMPASSWORD" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+              </div>
+            </div>
+            <button id="restablecer-password" class="btn btn-primary d-grid w-100 mb-3">
+              Restablecer contraseña
+            </button>
+            <div class="text-center">
+              <a href="/Auth/Login">
+                <i class="bx bx-chevron-left scaleX-n1-rtl"></i>
+                  Regresar al login
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- /Reset Password -->
+    </div>
+  </div>
+</div>

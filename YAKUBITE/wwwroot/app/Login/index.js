@@ -13,6 +13,17 @@ const executeView = () => {
         },
         globales: () => {
             configFormVal("formAuthentication", loginCrud.validaciones.autenticar, () => loginCrud.eventos.agregar());
+            
+            $("#btnRecovery").on("click", (e) => {
+                e.preventDefault();
+                $("#modalAddRecovery").modal("show");
+            });
+
+            $("#modalAddRecovery").on("shown.bs.modal", function () {
+                configFormVal("AddRecovery", loginCrud.validaciones.recovery, () => loginCrud.eventos.recovery());
+
+            });
+        
         },
         eventos: {
             agregar: () => {
@@ -61,6 +72,27 @@ const executeView = () => {
                     }
                 });
             },
+            recovery: () => {                
+                swalFire.cargando(["Espere un momento", "Estamos validando su correo"]);
+                $.ajax({
+                    url: uisApis.ORI + '=ObtenerUser&USUARIO=' + $("#AddRecovery #USUARIO").val(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('XSRF-TOKEN', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX');
+                    },
+                    type: 'GET',
+                    success: response => {
+                        if(response.success){
+                            return swalFire.success("Correo enviado", "Revise su bandeja de entrada", {
+                                1: () => {
+                                    $("#modalAddRecovery").modal("hide");
+                                }
+                            });
+                        }
+                        return swalFire.error("Ocurrió un error al enviar el correo");
+                    },
+                    error: error => swalFire.error('Ocurrió un error al cargar los datos')
+                });
+            }
         },
         validaciones: {
             autenticar: {
@@ -73,6 +105,11 @@ const executeView = () => {
                     minlength: 8,
                 }),
             },
+            recovery: {
+                "EMAIL": agregarValidaciones({
+                    required: true,
+                }),
+            }
         },
         variables: {
     

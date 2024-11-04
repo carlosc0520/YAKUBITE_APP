@@ -1,0 +1,23 @@
+<div class="modal fade" id="modalAddRecovery" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Recuperar Cuenta</h3>
+                </div>
+                <form id="AddRecovery" class="row g-3" method="post">
+                    <div class="col-12">
+                        <label class="form-label" for="USUARIO">Usuario <span class="text-danger">*</span></label>
+                        <input id="USUARIO" name="USUARIO" class="form-control max-length" rows="5" maxlength="500" required />
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddRecovery" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
