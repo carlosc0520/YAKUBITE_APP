@@ -1,0 +1,32 @@
+<div class="modal fade" id="modalAddPagoYape" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Pagar con Yape</h3>
+                </div>
+                <form id="AddPagoYape" class="row g-3"
+                    method="post">
+                    @Html.AntiForgeryToken()
+                    
+                    <div class="col-12 mt-4">
+                        <div id="qr-container" class="text-center">
+                            <img id="qr-image" src="https://res.cloudinary.com/dn9kck1sm/image/upload/v1730846717/QR_eszzr8.jpg" alt="QR Code" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <div class="text-center">
+                            <h5>Escanea el código QR con tu app de Yape</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <button type="submit" id="btnterminaryape" class="btn btn-primary w-100">Terminar Compra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

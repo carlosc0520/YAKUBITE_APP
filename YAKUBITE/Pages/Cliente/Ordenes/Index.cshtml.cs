@@ -42,10 +42,6 @@ namespace YAKUBITE.Pages.Cliente.Ordenes
           if (!string.IsNullOrWhiteSpace(e.JSONCARRITO))
           {
             e.CARRITO = JsonConvert.DeserializeObject<List<MenuCompraModel>>(e.JSONCARRITO);
-            e.CARRITO.ForEach(d =>
-            {
-                d.RUTA = Path.Combine(ConfiguracionProyecto.HOST, d.RUTA.Replace("\\", "/"));
-            });
           }
         });
 

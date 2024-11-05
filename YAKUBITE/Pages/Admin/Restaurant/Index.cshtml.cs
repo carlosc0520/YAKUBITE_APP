@@ -1,9 +1,11 @@
+using CARO.CORE;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.IdentityModel.Tokens;
 using YKT.CONFIG;
 using YKT.CORE.Helpers;
+using YKT_CORE.Helpers;
 using YKT_DATOS_CONSULTAS.ADMIN;
 using YKT_DATOS_EVENTOS.COMANDOS.ADM.RESTAURANT;
 using YKT_DATOS_MODELOS.ADMIN;
@@ -16,6 +18,7 @@ namespace YAKUBITE.Pages.Admin.Restaurant
   {
     private readonly IMediator _mediator;
     private readonly IConsultasRestaurant _consultasRestaurant;
+    private readonly CloudinaryFile _clodinaryFile;
 
     public IndexModel(
       IConsultasRestaurant consultasRestaurant,
@@ -24,6 +27,7 @@ namespace YAKUBITE.Pages.Admin.Restaurant
     {
       _consultasRestaurant = consultasRestaurant;
       _mediator = mediator;
+      _clodinaryFile = new CloudinaryFile();
     }
 
     #region RESTAURANT
@@ -35,11 +39,6 @@ namespace YAKUBITE.Pages.Admin.Restaurant
         HttpContextDraw.SetModelValues(HttpContext, custom);
         var datos = await _consultasRestaurant.Listar(custom);
         var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
-
-        datos.ForEach(e =>
-        {
-          e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
-        });
 
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
       }
@@ -59,11 +58,6 @@ namespace YAKUBITE.Pages.Admin.Restaurant
         var datos = await _consultasRestaurant.ListarAll(custom);
         var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
 
-        datos.ForEach(e =>
-        {
-          e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
-        });
-
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
       }
       catch (Exception ex)
@@ -73,7 +67,6 @@ namespace YAKUBITE.Pages.Admin.Restaurant
 
     }
 
-
     [HttpPost]
     public async Task<IActionResult> OnPostAddAsync([FromForm] ComandoInsertarRestaurant comando)
     {
@@ -81,16 +74,8 @@ namespace YAKUBITE.Pages.Admin.Restaurant
       {
         if (comando.FILE != null && comando.FILE.Length > 0)
         {
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "RESTAURANT");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = Path.Combine(folderPath, comando.FILE.FileName);
-          using (var stream = new FileStream(filePath, FileMode.Create))
-          {
-            await comando.FILE.CopyToAsync(stream);
-          }
-
-          comando.RUTA = filePath.Replace(ConfiguracionProyecto.DISK, "");
+          string publicUrl = await _clodinaryFile.UploadFileAsync(comando.FILE);
+          comando.RUTA = publicUrl;
         }
 
         comando.USUARIO = HttpContextDraw.User(HttpContext, 1);
@@ -104,7 +89,6 @@ namespace YAKUBITE.Pages.Admin.Restaurant
       }
     }
 
-
     [HttpPost]
     public async Task<IActionResult> OnPostUpdateAsync([FromForm] ComandoEditarRestaurant comando)
     {
@@ -114,22 +98,13 @@ namespace YAKUBITE.Pages.Admin.Restaurant
         {
           if (!string.IsNullOrEmpty(comando.RUTA))
           {
-            if (System.IO.File.Exists(comando.RUTA)) System.IO.File.Delete(comando.RUTA);
+            //await _clodinaryFile.DeleteFileAsync(comando.RUTA);
           }
 
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "RESTAURANT");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = Path.Combine(folderPath, comando.FILE.FileName);
-          using (var stream = new FileStream(filePath, FileMode.Create))
-          {
-            await comando.FILE.CopyToAsync(stream);
-          }
-
-          comando.RUTA = filePath;
+          string publicUrl = await _clodinaryFile.UploadFileAsync(comando.FILE);
+          comando.RUTA = publicUrl;
         }
 
-        comando.RUTA = comando.RUTA.Replace(ConfiguracionProyecto.DISK, "");
         comando.USUARIO = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
         return new JsonResult(result);
@@ -161,11 +136,6 @@ namespace YAKUBITE.Pages.Admin.Restaurant
         var datos = await _consultasRestaurant.ListarMenu(custom);
         var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
 
-        datos.ForEach(e =>
-        {
-          if (!e.RUTA.IsNullOrEmpty()) e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
-        });
-
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
       }
       catch (Exception ex)
@@ -182,16 +152,8 @@ namespace YAKUBITE.Pages.Admin.Restaurant
       {
         if (comando.FILE != null && comando.FILE.Length > 0)
         {
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "RESTAURANT", "MENU");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = Path.Combine(folderPath, comando.FILE.FileName);
-          using (var stream = new FileStream(filePath, FileMode.Create))
-          {
-            await comando.FILE.CopyToAsync(stream);
-          }
-
-          comando.RUTA = filePath.Replace(ConfiguracionProyecto.DISK, "");
+          string publicUrl = await _clodinaryFile.UploadFileAsync(comando.FILE);
+          comando.RUTA = publicUrl;
         }
 
         comando.USUARIO = HttpContextDraw.User(HttpContext, 1);
@@ -215,22 +177,13 @@ namespace YAKUBITE.Pages.Admin.Restaurant
         {
           if (!string.IsNullOrEmpty(comando.RUTA))
           {
-            if (System.IO.File.Exists(comando.RUTA)) System.IO.File.Delete(comando.RUTA);
+            //await _clodinaryFile.DeleteFileAsync(comando.RUTA);
           }
 
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "RESTAURANT", "MENU");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = Path.Combine(folderPath, comando.FILE.FileName);
-          using (var stream = new FileStream(filePath, FileMode.Create))
-          {
-            await comando.FILE.CopyToAsync(stream);
-          }
-
-          comando.RUTA = filePath;
+          string publicUrl = await _clodinaryFile.UploadFileAsync(comando.FILE);
+          comando.RUTA = publicUrl;
         }
 
-        comando.RUTA = comando.RUTA.Replace(ConfiguracionProyecto.DISK, "");
         comando.USUARIO = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
         return new JsonResult(result);
@@ -250,7 +203,5 @@ namespace YAKUBITE.Pages.Admin.Restaurant
     }
 
     #endregion
-
-
   }
 }

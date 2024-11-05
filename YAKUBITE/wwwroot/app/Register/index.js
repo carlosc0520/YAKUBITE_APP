@@ -63,9 +63,13 @@ const executeView = () => {
             autenticar: {
                 "CORREO": agregarValidaciones({
                     required: true,
+                    regexp: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                    message: "El correo electrónico no es válido",
                 }),
                 "TELEFONO": agregarValidaciones({
                     required: true,
+                    regexp: /^[0-9]{10}$/,
+                    message: "El teléfono no es válido",
                 }),
                 "USUARIO": agregarValidaciones({
                     required: true,

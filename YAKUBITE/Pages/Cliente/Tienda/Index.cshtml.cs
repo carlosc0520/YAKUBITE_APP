@@ -35,11 +35,6 @@ namespace YAKUBITE.Pages.Cliente.Tienda
         var datos = await _consultasRestaurant.ListarAll(custom);
         var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
 
-        datos.ForEach(e =>
-        {
-          e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
-        });
-
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
       }
       catch (Exception ex)
@@ -56,12 +51,6 @@ namespace YAKUBITE.Pages.Cliente.Tienda
         HttpContextDraw.SetModelValues(HttpContext, custom);
         var datos = await _consultasRestaurant.ListarMenu(custom);
         var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
-
-        datos.ForEach(e =>
-        {
-          e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
-        });
-
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
       }
       catch (Exception ex)

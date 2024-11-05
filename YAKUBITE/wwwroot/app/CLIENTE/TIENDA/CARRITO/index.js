@@ -64,6 +64,23 @@ const executeView = () => {
             $("#carrito-orden").text("Orden #" + carritoCrud.eventos.generarCodigo(16));
             $("#carrito-fecha").text(carritoCrud.eventos.fechaLarga());
             $("#icon-carrito-compras").addClass("d-none");
+
+            $("#btnPagarYape").on("click", (e) => {
+                e.preventDefault();
+                $("#modalAddPagoYape").modal("show");
+            });
+
+
+            $("#btnterminaryape").on("click", (e) => {
+                e.preventDefault();
+                let store = JSON.parse(localStorage.getItem('carrito') ? localStorage.getItem('carrito') : '[]');
+                if (store.length === 0) {
+                    return swalFire.warning("No hay productos en el carrito");
+                }
+
+                carritoCrud.eventos.insertarCarrito();
+            
+            });
         },
         variables: {
 
@@ -198,6 +215,7 @@ const executeView = () => {
                                     localStorage.removeItem('carrito');
                                     $("#carrito-form")[0].reset();
                                     carritoCrud.eventos.initTable();
+                                    $("#modalAddPagoYape").modal("hide");
                                 }
                             });
                         }

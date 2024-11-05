@@ -29,6 +29,7 @@
 }
 
 @section PageScripts {
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js" integrity="sha512-NFUcDlm4V+a2sjPX7gREIXgCSFja9cHtKPOL1zj6QhnE0vcY695MODehqkaGYTLyL2wxe/wtr4Z49SvqXq12UQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="~/app/CLIENTE/TIENDA/CARRITO/index.js"></script>
 }
 
@@ -143,6 +144,9 @@
 
                             <div class="col-12">
                                 <button type="submit" id="btnPagarCarrito" class="btn btn-primary w-100">Pagar</button>
+                                <button type="submit" id="btnPagarYape" class="btn mt-4 btn-purple w-100"
+                                style="background-color: #71188fff; color: #fff;"
+                                >Pagar con Yape</button>
                             </div>
                         </form>
                     </div>
@@ -151,3 +155,4 @@
         </div>
     </div>
 </div>
+@await Html.PartialAsync("./_Partials/_ModalPagarConYape")

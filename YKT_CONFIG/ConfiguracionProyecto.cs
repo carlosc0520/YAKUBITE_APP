@@ -2,29 +2,22 @@
 {
     public class ConfiguracionProyecto
     {
-        public const string PROYECTO = PROYECTOS.Caro;
+        public const string PROYECTO = PROYECTOS.YAKUBITE;
         public const string TEMA = TEMAS.Default;
         public const string ENTORNO_DESPLIEGUE = ENTORNOS.Desarrollo;
 
         public const int TIEMPO_SESION_MINUTOS = 120;
 
-        //public const string DISK = "h:\\root\\home\\devcar0520-001\\www\\yakubite-files\\yakubite\\";
-        //public const string HOST = "http://devcar0520-001-site12.etempurl.com/";
-        public const string DISK = "C:\\yakubite\\";
-        public const string HOST = "C:\\yakubite\\";
+        public const string DISK = ""; //"C:\\yakubite\\";
+        public const string HOST = ""; // "C:\\yakubite\\";
 
-        //public const string DISK = "h:\\root\\home\\devcar0520-001\\www\\";
-        //public const string HOST = "http://devcar0520-001-site11.etempurl.com/";
-
-
-        //public const string DISKFILE = "http://devcar0520-001-site13.etempurl.com/";
         public static class TEMAS
         {
             public const string Default = "default";
         }
         public static class PROYECTOS
         {
-            public const string Caro = "CARO";
+            public const string YAKUBITE = "YAKUBITE";
         }
         public static class ENTORNOS
         {
@@ -33,10 +26,6 @@
             public const string Produccion = "Production";
         }
 
-        public static class MODULOS
-        {
-
-        }
         public static class CARPETAS_DESPLIEGUE
         {
             public const string Login_Web = "login";
@@ -56,20 +45,5 @@
             public const decimal ScoreAdmitido = 0.5M;
         }
 
-        public static class APIS
-        {
-
-        }
-
-        public static class TOKEN
-        {
-
-        }
-
-        public static class CORREOS_CONTACTO
-        {
-            public const string CORREO = "ccarbajalmt0520@gmail.com";
-            public const string KEY = "qcigvfwwdyrwelib";
-        }
     }
 }

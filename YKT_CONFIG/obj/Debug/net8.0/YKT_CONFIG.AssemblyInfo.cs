@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YKT_CONFIG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+995e37e7d8067eadbe75ef75709c800a4ada9086")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+21a2677353772a4f30bde087416521350913abaa")]
 [assembly: System.Reflection.AssemblyProductAttribute("YKT_CONFIG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YKT_CONFIG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

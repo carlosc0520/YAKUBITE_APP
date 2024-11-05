@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using YKT.CONFIG;
 using YKT.CORE.Helpers;
+using YKT_CORE.Helpers;
 using YKT_DATOS_CONSULTAS.ADMIN;
 using YKT_DATOS_EVENTOS.COMANDOS.ADM.COMUNIDAD;
 using YKT_DATOS_MODELOS.ADMIN;
@@ -17,6 +18,7 @@ namespace YAKUBITE.Pages.Admin.Comunidad
   {
     private readonly IMediator _mediator;
     private readonly IConsultasComunidad _consultasComunidad;
+    private readonly CloudinaryFile _clodinaryFile;
 
     public IndexModel(
       IConsultasComunidad consultasComunidad,
@@ -25,6 +27,7 @@ namespace YAKUBITE.Pages.Admin.Comunidad
     {
       _consultasComunidad = consultasComunidad;
       _mediator = mediator;
+      _clodinaryFile = new CloudinaryFile();
     }
 
     #region COMUNIDAD
@@ -36,12 +39,6 @@ namespace YAKUBITE.Pages.Admin.Comunidad
         HttpContextDraw.SetModelValues(HttpContext, custom);
         var datos = await _consultasComunidad.Listar(custom);
         var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
-
-        datos.ForEach(e =>
-        {
-          if(!e.RUTA.IsNullOrEmpty()) e.RUTA = Path.Combine(ConfiguracionProyecto.HOST, e.RUTA.Replace("\\", "/"));
-        });
-
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
       }
       catch (Exception ex)
@@ -67,7 +64,6 @@ namespace YAKUBITE.Pages.Admin.Comunidad
           e.RESPUESTA.ForEach(d =>
           {
             d.ISDELETE = custom.ID == d.IDUSUARIO;
-            if (!d.DRUTA.IsNullOrEmpty()) d.DRUTA = Path.Combine(ConfiguracionProyecto.HOST, d.DRUTA.Replace("\\", "/"));
           });
 
         });
@@ -106,16 +102,8 @@ namespace YAKUBITE.Pages.Admin.Comunidad
       {
         if (comando.FILE != null && comando.FILE.Length > 0)
         {
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "FOROS");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = Path.Combine(folderPath, comando.FILE.FileName);
-          using (var stream = new FileStream(filePath, FileMode.Create))
-          {
-            await comando.FILE.CopyToAsync(stream);
-          }
-
-          comando.RUTA = filePath.Replace(ConfiguracionProyecto.DISK, "");
+          string publicUrl = await _clodinaryFile.UploadFileAsync(comando.FILE);
+          comando.RUTA = publicUrl;
         }
 
         comando.USUARIO = HttpContextDraw.User(HttpContext, 1);
@@ -139,22 +127,13 @@ namespace YAKUBITE.Pages.Admin.Comunidad
         {
           if (!string.IsNullOrEmpty(comando.RUTA))
           {
-            if (System.IO.File.Exists(comando.RUTA)) System.IO.File.Delete(comando.RUTA);
+            //await _clodinaryFile.DeleteFileAsync(comando.RUTA);
           }
 
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "FOROS");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = Path.Combine(folderPath, comando.FILE.FileName);
-          using (var stream = new FileStream(filePath, FileMode.Create))
-          {
-            await comando.FILE.CopyToAsync(stream);
-          }
-
-          comando.RUTA = filePath;
+          string publicUrl = await _clodinaryFile.UploadFileAsync(comando.FILE);
+          comando.RUTA = publicUrl;
         }
 
-        comando.RUTA = comando.RUTA.Replace(ConfiguracionProyecto.DISK, "");
         comando.USUARIO = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
         return new JsonResult(result);
