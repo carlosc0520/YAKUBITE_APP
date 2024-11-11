@@ -864,6 +864,9 @@ if(datepickerListModify.length > 0) {
 // * EVENTOS GLOBALES
 const carritoCompras = () => {
   let carrito = document.getElementById('icon-carrito-compras');
+
+  if (!carrito) return;
+
   carrito.addEventListener('click', function (e) {
     e.preventDefault();
     let contenedor = document.getElementById('dropdown-carrito-container');

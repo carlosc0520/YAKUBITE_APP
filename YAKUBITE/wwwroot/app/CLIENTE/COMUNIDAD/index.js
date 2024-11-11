@@ -118,7 +118,7 @@ const executeView = () => {
                                 <h2 class="accordion-header">
                                     <button type="button" class="accordion-button collapsed d-flex justify-content-center align-items-center gap-3" data-bs-toggle="collapse" 
                                     data-bs-target="#accordionStyle-${item.id}" aria-expanded="false">
-                                        <img alt="${item.titulo}" 
+                                        <img alt="${item.titulo}" style="width: 100px;height: 100px;"
                                         src="${item.ruta}"
                                         onerror="this.src='https://placehold.co/50x50';" />
                                         <p>${item.titulo}</p>

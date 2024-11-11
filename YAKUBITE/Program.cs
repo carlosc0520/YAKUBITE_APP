@@ -61,6 +61,7 @@ builder.Services.AddTransient<ITokenValidationService, TokenValidationService>()
 builder.Services.AddTransient<IConsultasRestaurant, ConsultasRestaurant>();
 builder.Services.AddTransient<IConsultasUsuario, ConsultasUsuario>();
 builder.Services.AddTransient<IConsultasComunidad, ConsultasComunidad>();
+builder.Services.AddTransient<IConsultasRecompensas, ConsultasRecompensas>();
 #endregion ADMINISTRADOR
 
 #region CLIENTE

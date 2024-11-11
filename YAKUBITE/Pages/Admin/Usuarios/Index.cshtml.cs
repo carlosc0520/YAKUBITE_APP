@@ -47,6 +47,23 @@ namespace YAKUBITE.Pages.Admin.Usuarios
 
     }
 
+    [HttpGet]
+    public async Task<IActionResult> OnGetObtenerAsync([FromQuery] UsuarioModel custom)
+    {
+      try
+      {
+        HttpContextDraw.SetModelValues(HttpContext, custom);
+        custom.ID = int.Parse(HttpContextDraw.User(HttpContext, 2));
+        var datos = await _consultasUsuario.Listar(custom);
+        var totalRows = datos?.FirstOrDefault()?.TOTALROWS ?? 0;
+        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = datos, draw = custom.DRAW });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { success = false, message = "Ocurrió un error al listar los usuarios.", error = ex.Message });
+      }
+
+    }
 
     [HttpPost]
     public async Task<IActionResult> OnPostAddAsync([FromForm] ComandoInsertarUsuario comando)

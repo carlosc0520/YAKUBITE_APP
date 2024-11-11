@@ -17,6 +17,7 @@
             public const string CrudMenu = "ADM.USP_CRUD_MENU";
             public const string CrudUsuario = "ADM.USP_CRUD_USUARIOS_ADMIN";
             public const string CrudComunidad = "ADM.USP_CRUD_FOROS";
+            public const string CrudRecompensas = "ADM.USP_CRUD_RECOMPENSAS";
         }
 
         public static class CLIENTE

@@ -49,7 +49,7 @@ const executeView = () => {
                                 swalFire.success("Bienvenido", "Iniciando sesión", {
                                     1: () => {
                                         localStorage.setItem("accessToken", data.accessToken);
-                                        window.location.href = `/Admin/Home/`;
+                                        window.location.href = `/Admin/Perfil/`;
                                     }
                                 });
                             }
